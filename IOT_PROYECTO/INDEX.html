@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content= "width=device-width,initial-scale=1.0">
+<title>Proyecto3byFleitesandTellez</title> <!--Cabeza de la pagina-->
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+</head>
+
+<body background="./Images/darkness.png"> <!--fondo de pagina-->
+
+<font color="#6495ED" face="Comic Sans MS" size=6>
+<p align="center">LECTURA DE TEMPERATURAS RT DB</p>
+</font>
+
+<center>
+<table border="0" cellpadding="20">
+
+<tr><!--Columnas del renglon-->
+<td colspan="3">
+<center>
+<font color="#F08080" style="font-size:50">
+Sensores de Temperatura
+</font>
+</center>
+</td>
+</tr>
+
+<tr>
+<td><!--Imagen en cada columna-->
+<center>
+<img src="./Images/actual.png">
+</center>
+</td>
+<td><!--Imagen en cada columna-->
+<center>
+<img src="./Images/maximo.png">
+</center>
+</td>
+<td><!--Imagen en cada columna-->
+<center>
+<img src="./Images/minimo.png">
+</center>
+</td>
+</tr>
+
+<tr>
+<td><!--Imagen en cada columna-->
+<center>
+<font color="#D3D3D3" style="font-size: 20">
+Temperatura Actual
+</font>
+</center>
+</td>
+<td><!--Imagen en cada columna-->
+<center>
+<font color="#B22222" style="font-size: 20">
+Temperatura Maxima
+</font>
+</center>
+</td>
+<td><!--Imagen en cada columna-->
+<center>
+<font color="#0000CD" style="font-size: 20">
+Temperatura Minima
+</font>
+</center>
+</td>
+</tr>
+
+</table>
+</center>
+
+<font size=4 face="Comic Sans MS" >
+<p style="color:rgb(255, 239,213);">Temperatura Actual: <span id="temp1"></span></p>
+<p style="color:rgb(176, 224, 230);">Temperatura Mínima: <span id="temp2"></span></p>
+<p style="color:rgb(255, 99, 71);">Temperatura Máxima: <span id="temp3"></span></p>
+</font>
+
+</body>
+
+<script>
+  // Import the functions you need from the SDKs you need
+  var firebaseConfig = {
+    apiKey: "AIzaSyBoEVJMBsFoksgKMO9Ysj_MQXyP1hn8S58",
+    authDomain: "ejemplo-3b3bb.firebaseapp.com",
+    databaseURL: "https://ejemplo-3b3bb-default-rtdb.firebaseio.com",
+    projectId: "ejemplo-3b3bb",
+    storageBucket: "ejemplo-3b3bb.appspot.com",
+    messagingSenderId: "757725888227",
+    appId: "1:757725888227:web:9dbb89f4096e46bb03cfd6",
+    measurementId: "G-V8D85J9VK5"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var database = firebase.database().ref("/ejemplo-3b3bb-default-rtdb").orderByKey();
+  database.on('value', (snapshot) => {
+	snapshot.forEach((childSnapshot) => {
+		var childKey = childSnapshot.key;
+		var childData = childSnapshot.val();
+  var temp_a = childSnapshot.val().TemperaturaActual;
+  var tempmin = childSnapshot.val().TemperaturaMinima;
+  var tempmx = childSnapshot.val().TemperaturaMaxima;
+  document.getElementById("temp1").innerHTML = temp_a;
+  document.getElementById("temp2").innerHTML = tempmin;
+  document.getElementById("temp3").innerHTML = tempmx;
+  });
+});
+</script>
+
+</html>
